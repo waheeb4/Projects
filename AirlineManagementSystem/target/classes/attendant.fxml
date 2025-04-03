@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="575.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.airlinemanagementsystem.controllers.AttendantController">
+   <ImageView fitHeight="575.0" fitWidth="636.0" pickOnBounds="true">
+      <image>
+         <Image url="@Images/360_F_943472807_HNlgcBnt14R0ytib.jpg" />
+      </image>
+   </ImageView>
+
+        <TextField fx:id="attendantIDtxt" layoutX="23.0" layoutY="305.0" prefHeight="25.0" prefWidth="73.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="506.3333333333333" AnchorPane.topAnchor="305.0" />
+        <TextField fx:id="firstNametxt" layoutX="147.0" layoutY="167.0" prefHeight="25.0" prefWidth="73.0"  AnchorPane.leftAnchor="147.0" AnchorPane.rightAnchor="382.3333333333333" AnchorPane.topAnchor="167.0" />
+        <TextField fx:id="lastNametxt" layoutX="276.0" layoutY="167.0" prefHeight="25.0" prefWidth="73.0" AnchorPane.leftAnchor="276.0" AnchorPane.rightAnchor="253.33333333333337" AnchorPane.topAnchor="167.0" />
+        <TextField fx:id="agetxt" layoutX="276.0" layoutY="240.0" prefHeight="25.0" prefWidth="73.0"  AnchorPane.leftAnchor="276.0" AnchorPane.rightAnchor="253.77777777777777" AnchorPane.topAnchor="240.0" />
+        <TextField fx:id="phoneNumbertxt" layoutX="23.0" layoutY="238.0" prefHeight="25.0" prefWidth="73.0"  AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="506.3333333333333" AnchorPane.topAnchor="238.0" />
+        <TextField fx:id="addresstxt" layoutX="147.0" layoutY="240.0" prefHeight="25.0" prefWidth="73.0"  AnchorPane.leftAnchor="147.0" AnchorPane.rightAnchor="382.77777777777777" AnchorPane.topAnchor="240.0" />
+        <TextField fx:id="ssntxt" layoutX="23.0" layoutY="167.0" prefHeight="25.0" prefWidth="73.0"  AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="506.3333333333333" AnchorPane.topAnchor="167.0" />
+
+
+        <Button layoutX="420.0" layoutY="204.0" onAction="#handleAddAttendant" prefHeight="25.0" prefWidth="108.0" text="Add Attendant" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="74.66666666666674" AnchorPane.topAnchor="204.0" />
+        <Button layoutX="421.0" layoutY="240.0" onAction="#handleDeleteAttendant" prefHeight="25.0" prefWidth="108.0" text="Delete Attendant" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="73.66666666666674" AnchorPane.topAnchor="240.0" />
+        <Button layoutX="421.0" layoutY="280.0" onAction="#handleClear" prefHeight="25.0" prefWidth="108.0" text="Clear" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="73.66666666666674" AnchorPane.topAnchor="280.0" />
+        <Button layoutX="421.0" layoutY="314.0" onAction="#handleBack" prefHeight="25.0" prefWidth="108.0" text="Back" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="73.66666666666674" AnchorPane.topAnchor="314.0" />
+
+
+        <TableView fx:id="attendantsTable" layoutY="352.8888888888889" prefHeight="222.0" prefWidth="635.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="353.0">
+            <columns>
+                <TableColumn fx:id="attendantIDColumn" prefWidth="110.22216540575027" text="Attendant ID" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="93.33338165283203" text="First Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="80.44438171386719" text="Last Name" />
+                <TableColumn fx:id="ageColumn" prefWidth="67.5555419921875" text="Age" />
+                <TableColumn fx:id="phoneNumberColumn" prefWidth="108.88885498046875" text="Phone Number" />
+                <TableColumn fx:id="addressColumn" prefWidth="87.11111450195312" text="Address" />
+                <TableColumn fx:id="ssnColumn" prefWidth="83.5555419921875" text="SSN" />
+            </columns>
+        </TableView>
+
+        <Button layoutX="421.0" layoutY="167.0" onAction="#handleViewInfo" prefHeight="25.0" prefWidth="140.0" text="View Info" AnchorPane.bottomAnchor="382.7777777777777" AnchorPane.leftAnchor="421.0" />
+   <Label layoutX="23.0" layoutY="138.0" text="SSN:" />
+   <Label layoutX="147.0" layoutY="138.0" text="First Name:" />
+   <Label layoutX="276.0" layoutY="138.0" text="Last Name:" />
+   <Label layoutX="21.0" layoutY="217.0" text="Phone No:" />
+   <Label layoutX="147.0" layoutY="217.0" text="Address:" />
+   <Label layoutX="276.0" layoutY="217.0" text="Age" />
+   <Label layoutX="21.0" layoutY="284.0" text="Attendant ID:" />
+   <ImageView fitHeight="139.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@Images/logo.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="137.0" fitWidth="134.0" layoutX="502.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@Images/png-transparent-air-attendant-ca-removebg-preview.png" />
+      </image>
+   </ImageView>
+   <Label layoutX="243.0" layoutY="40.0" text="ATTENDANTS">
+      <font>
+         <Font size="28.0" />
+      </font>
+   </Label>
+
+</AnchorPane>
