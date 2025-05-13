@@ -1,0 +1,37 @@
+. Start of the program
+1    COPY    Start   0000       ;Aadadad
+2    FIRST   STL     RETADR     ;adadada
+3            LDB     #LENGTH    . Load LENGTH into register B
+4            BASE    LENGTH     . Set base address for relative addressing
+5    CLOOP   +JSUB   RDREC      . Call subroutine to read a record
+6            LDA     LENGTH     . Load LENGTH into register A
+7            COMP    #0         . Compare LENGTH with 0
+8            JEQ     ENDFIL     . If LENGTH is 0, end file processing
+9            +JSUB   RDREC      . Call subroutine to write a record
+10           J       CLOOP      . Loop back to CLOOP
+11   ENDFIL  LDA     EOF        . Load EOF marker
+12           STA     BUFFER     . Store EOF in BUFFER
+13           LDA     #3         . Load 3 into register A
+14           STA     LENGTH     . Store 3 in LENGTH
+15           +JSUB   RDREC      . Call subroutine to write EOF
+16           J       @RETADR    . Return to caller
+17   EOF     BYTE    C'EOF',C'EAD'     . EOF marker
+18           BYTE    X'F1'      ;lol 
+18           WORD    100
+18           WORD    100,200,300   
+18   RETADR  RESW    1          . Space for return address
+19   LENGTH  RESW    1          . Space for LENGTH
+20   BUFFER  RESB    4096        . Space for BUFFER
+21   RDREC   CLEAR   X          . Clear register X
+22           CLEAR   A          . Clear register A
+23           CLEAR   S          . Clear register S
+24           +LDT    #4096      . Load 4096 into register T
+25   RLOOP   TD      INPUT      . Test device INPUT
+26           JEQ     RLOOP      . Wait until device is ready
+27           RD      INPUT      . Read a character from INPUT
+28           COMPR   A,S        . Compare A with S
+29           JEQ     EXIT       . If equal, exit loop
+30           STCH    BUFFER,X   . Store character in BUFFER at X
+31           TIXR    T          . Increment X and compare with T
+32           JLT     RLOOP      . If X < T, continue reading
+33   EXIT    STX     LENGTH     . Store record length in LENGTH

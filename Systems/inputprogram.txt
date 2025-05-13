@@ -1,0 +1,46 @@
+1    COPY     START    0000          ; Program start
+2    FIRST    STL      RETADR        ; Store return address
+3             LDB      #LENGTH       ; Load base register with LENGTH
+4             BASE     LENGTH        ; Set base register to LENGTH
+5    CLOOP    +JSUB    RDREC         ; Jump to subroutine RDREC
+6             LDA      LENGTH        ; Load LENGTH into accumulator
+7             COMP     #0            ; Compare LENGTH with 0
+8             JEQ      ENDFIL        ; Jump to ENDFIL if equal
+9             +JSUB    WRREC         ; Jump to subroutine WRREC
+10            J        CLOOP         ; Jump to CLOOP
+11   ENDFIL   LDA      EOF           ; Load EOF into accumulator
+12            STA      BUFFER        ; Store accumulator into BUFFER
+13            LDA      #3            ; Load 3 into accumulator
+14            STA      LENGTH        ; Store accumulator into LENGTH
+15            +JSUB    WRREC         ; Jump to subroutine WRREC
+16            J        @RETADR       ; Jump to return address
+17   EOF      BYTE     C'EOF'        ; Define EOF as 'EOF'
+18   RETADR   RESW     1             ; Reserve 1 word for return address
+19   LENGTH   RESW     1             ; Reserve 1 word for LENGTH
+20   BUFFER   RESB     4096          ; Reserve 4096 bytes for BUFFER
+21   RDREC    CLEAR    X             ; Clear register X
+22            CLEAR    A             ; Clear accumulator
+23            CLEAR    S             ; Clear register S
+24            +LDT     #4096         ; Load 4096 into register T
+25   RLOOP    TD       INPUT         ; Test device INPUT
+26            JEQ      RLOOP         ; Jump to RLOOP if equal
+27            RD       INPUT         ; Read from INPUT
+28            COMPR    A,S           ; Compare accumulator with register S
+29            JEQ      EXIT          ; Jump to EXIT if equal
+30            STCH     BUFFER,X      ; Store character in BUFFER at X
+31            TIXR     T             ; Increment index register T
+32            JLT      RLOOP         ; Jump to RLOOP if less than
+33   EXIT     STX      LENGTH        ; Store index register X into LENGTH
+34            RSUB                   ; Return from subroutine
+35   INPUT    BYTE     X'F1'         ; Define INPUT byte as hexadecimal 'F1'
+36   WRREC    CLEAR    X             ; Clear register X
+37            LDT      LENGTH        ; Load LENGTH into register T
+38   WLOOP    TD       OUTPUT        ; Test device OUTPUT
+39            JEQ      WLOOP         ; Jump to WLOOP if equal
+40            LDCH     BUFFER,X      ; Load character from BUFFER at X
+41            WD       OUTPUT        ; Write to OUTPUT
+42            TIXR     T             ; Increment index register T
+43            JLT      WLOOP         ; Jump to WLOOP if less than
+44            RSUB                   ; Return from subroutine
+45   OUTPUT   BYTE     X'05'         ; Define OUTPUT byte as hexadecimal '05'
+46            END      FIRST         ; End of program, first executable instruction
